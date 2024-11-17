@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NextGen Money</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    
+    <style>
+        /* General Body Styling */
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            background-image: url('{{ url_for('static', filename='images/Register - Login.gif') }}');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            scroll-behavior: smooth;
+        }
+
+        /* Footer Styling */
+        footer {
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+        }
+
+        footer p {
+            margin: 0;
+            font-size: 1rem;
+        }
+
+        footer a {
+            color: #FFC107;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Section Animations */
+        section {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 50px;
+            box-sizing: border-box;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 1s, transform 1s ease;
+            flex-direction: column;
+        }
+
+        section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Welcome Section - Main Section */
+        .welcome-section {
+            text-align: center;
+            position: relative;
+            border-radius: 20px;
+            padding-top: 0px; 
+            padding-bottom: 30px;
+        }
+
+        .welcome-section .logo img {
+            width: 350px;
+            border-radius: 20px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+        }
+
+        .welcome-section .mission h1 {
+            font-size: 3.5rem;
+            color:#F8F7F0;
+            padding: 20px 0px;
+            margin-bottom: 0px;
+            font-weight: 600;
+            line-height: 1.2;
+        }
+
+        .welcome-section .mission h2 {
+            font-size: 2.5rem;
+            color: #F8F7F0;
+            margin: 0;
+            font-weight: 500;
+            line-height: 1.3;
+        }
+
+        /* Consistent Section Spacing */
+        section {
+            margin-bottom: 60px; 
+        }
+
+        .image-section {
+            width: 100%; 
+            height: 100vh; 
+            padding: 0; 
+            margin: 0; 
+        }
+
+        /* Image Section Styling */
+        .image-section {
+            text-align: center;
+            padding: 30px 0;
+        }
+
+        /* Image container */
+        .image-container {
+            display: flex;
+            justify-content: center;
+            width: 75%; 
+            margin: 0 auto; 
+        }
+
+        .image-container img {
+            width: 750%; 
+            height: 100%;
+            object-fit: cover;
+            border-radius: 15px; 
+            border: 5px solid #ccc; 
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); 
+        }       
+
+        /* About Section */
+        .about-section {
+            flex-direction: column;
+            text-align: center;
+            color: #F8F7F0;
+            position: relative;
+            padding: 60px 0;
+            box-sizing: border-box;
+        }
+
+        .about-section h2 {
+            font-size: 3.5rem; 
+            color: #F8F7F0; 
+            padding: 20px 0px; 
+            margin-bottom: 0px;
+            font-weight: 600; 
+            line-height: 1.2; 
+        }
+        
+        .about-section .profiles {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            width: 100%;
+            margin-top: 10px;
+            padding: 0 20px;
+        }
+
+        .about-section .profile {
+            text-align: center;
+            width: 20%;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .about-section .profile img {
+            width: 100%;
+            height: auto;
+            border-radius: 50%;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+            margin-bottom: 15px;
+        }
+
+        .about-section .profile img:hover {
+            transform: scale(1.1);
+        }
+
+        @media (max-width: 700px) {
+            .about-section .profiles {
+                flex-wrap: wrap; 
+                justify-content: center;
+            }
+
+            .about-section .profile {
+                width: 48%; 
+                margin-bottom: 20px;
+            }
+        }   
+
+        @media (max-width: 400px) {
+            .about-section .profile {
+                width: 100%; 
+            }
+        }
+
+        /* How It Works Section */
+        .how-it-works {
+            padding: 80px 0;
+            text-align: center;
+        }
+
+        .how-it-works h2 {
+            font-size: 3.5rem; 
+            color: #F8F7F0; 
+            padding: 20px 0px; 
+            margin-bottom: 0px;
+            font-weight: 600; 
+            line-height: 1.2;
+        }
+
+        .how-it-works .content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 40px;
+            margin-top: 40px;
+        }
+
+        .left-column {
+            flex: 1;
+            text-align: left;
+            max-width: 600px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center; 
+            height: 100%; 
+        }
+
+        .left-column h3 {
+            font-size: 2rem;
+            color: #F8F7F0;
+            margin-bottom: 20px;
+        }
+
+        .left-column p {
+            font-size: 1.1rem;
+            color: #F8F7F0;
+            line-height: 1.6;
+        }
+
+        .right-column {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .card img {
+            width: 500px;  
+            height: auto;  
+            border-radius: 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            border: 5px solid #ccc; 
+        }
+
+        /* Google Signup Section */
+        .google-signup-section {
+            padding: 30px;
+            text-align: center;
+            border-radius: 20px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            margin: 0 auto;
+            position: relative;
+            top: -50px; 
+        }
+
+        .google-signup-section h2 {
+            font-size: 3.5rem; 
+            color: #F8F7F0; 
+            padding: 20px 0px; 
+            margin-bottom: 0px;
+            font-weight: 600; 
+            line-height: 1.2;
+        }
+
+        /* Button Style for Google Sign-Up */
+        .g_id_signin {
+            transform: scale(1.5); /* Increases the size by 1.5 times */
+            transform-origin: center; /* Keeps the scaling centered */
+            margin-top: 20px;
+        }
+
+    </style>
+</head>
+<body>
+    <!-- Welcome Section -->
+    <section class="welcome-section">
+        <div class="logo">
+            <img src="{{ url_for('static', filename='images/logo-final.png') }}" alt="NextGen Money Logo">
+        </div>
+        <div class="mission">
+            <h1>Choose Smarter, Grow Faster</h1>
+            <h2>Your Path to Better Financial Decisions.</h2>
+        </div>
+    </section>
+
+    <!-- Image Section -->
+    <section class="image-section">
+        <div class="image-container">
+            <img src="{{ url_for('static', filename='images/about3.png') }}" alt="Long Rectangular Banner">
+        </div>
+    </section>
+
+    <!-- About the Creators Section -->
+    <section class="about-section">
+        <h2>About the Creators</h2>
+        <div class="profiles">
+            <div class="profile">
+                <img src="{{ url_for('static', filename='images/kaylee_pfp.jpg') }}" alt="Kaylee King">
+                <h3>Kaylee King</h3>
+                <p>Computer Science (Senior), UTD.</p>
+            </div>
+            <div class="profile">
+                <img src="{{ url_for('static', filename='images/kamya_pfp.jpg') }}"alt="Kamya Arora">
+                <h3>Kamya Arora</h3>
+                <p>Computer Science (Junior), UTD.</p>
+            </div>
+            <div class="profile">
+                <img src="{{ url_for('static', filename='images/laksha_pfp.jpg') }}" alt="Laksha Arora">
+                <h3>Laksha Arora</h3>
+                <p>Computer Science (Junior), UTD.</p>
+            </div>
+            <div class="profile">
+                <img src="{{ url_for('static', filename='images/priyankaa_pfp.jpg') }}" alt="Priyankaa Surisetty">
+                <h3>Priyankaa Surisetty</h3>
+                <p>Computer Science (Junior), UTD.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section class="how-it-works">
+        <h2>How It Works</h2>
+        <div class="content">
+            <!-- Left Section for Summary -->
+            <div class="left-column">
+                <h3>Two Steps to Choosing the Best</h3>
+                <p><strong>-----------------------------------------------------</strong></p>
+                <p><strong>1. Share Your Financial Goals</strong><br>
+                Engage with our intuitive chat interface and provide details about your financial objectives and preferences through a quick conversation.</p>
+                <p><strong>2. Receive Tailored Recommendations</strong><br>
+                Get customized credit card and account offers, aggregated from the latest promotions, to help you make informed and optimal financial decisions.</p>
+            </div>
+
+            <!-- Right Section for GIF and White Card -->
+            <div class="right-column">
+                <div class="card">
+                    <img src="{{ url_for('static', filename='images/tmp.gif') }}" alt="Project GIF">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Google Signup Section -->
+    <section class="google-signup-section">
+        <h2>Sign In with Google</h2>
+        <div id="g_id_onload" data-client_id="602224708521-civ2c4p0ipi2hr7ll431er8drboa6lsc.apps.googleusercontent.com" data-callback="handleCredentialResponse"></div>
+        <div class="g_id_signin" data-type="standard" data-theme="outline"></div>
+    </section>
+
+    <script>
+        function handleCredentialResponse(response) {
+            window.location.href = 'chatbot.html';
+        }
+    </script>
+
+    <script src="{{ url_for('static', filename='index.js') }}">
+    </script>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 NextGen Money. All rights reserved.</p>
+        <p>Visit our <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>
+    </footer>
+
+    <script>
+        // Function to call the Flask route to run the Python script
+        function handleCredentialResponse() {
+            fetch('/run-python-script', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ /* data */ })
+            })
+            .then(response => response.text())  // Get the HTML response
+            .then(data => {
+                document.open();
+                document.write(data);  // Write the received HTML into the current page
+                document.close();
+            })
+            .catch(error => console.error('Error:', error));
+        }
+
+        // Add event listener for the button click
+        document.getElementById("google-signin-btn").addEventListener("click", function() {
+            handleCredentialResponse(); // Call the function when the button is clicked
+        });
+    </script>
+
+    <!-- Intersection Observer Script -->
+    <script>
+        const sections = document.querySelectorAll('section');
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.5 });
+
+        sections.forEach(section => observer.observe(section));
+    </script>
+
+</body>
+</html>
+

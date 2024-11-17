@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NextGen Money - Chatbot</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            background-image: url('{{ url_for('static', filename='images/Register - Login.gif') }}');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            color: #333;
+            display: flex;
+            flex-direction: column; /* Arrange header, main content, and footer vertically */
+            height: 100vh;
+        }
+
+        .container {
+            display: flex;
+            flex-grow: 1; /* Allow the main content area to grow */
+            box-sizing: border-box;
+            margin: 0 20px; /* Optional margin for spacing around the content */
+            overflow: hidden; /* Prevent overflow of elements */
+        }
+
+        /* Header Styling */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 40px;
+            z-index: 10;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2rem;
+            color: white;
+        }
+
+        nav {
+            display: flex;
+        }
+
+        nav a {
+            color: white;
+            margin-left: 20px;
+            text-decoration: none;
+            font-size: 1.2rem;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+        .profile-icon {
+            font-size: 1.6rem;
+            margin-left: 20px;
+        }
+
+        header img {
+            max-width: 150px; /* Adjust the logo size */
+            height: auto;
+        }
+
+
+        /* Footer Styling */
+        footer {
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+            margin-top: auto; /* Ensure the footer stays at the bottom */
+        }
+
+        footer p {
+            margin: 0;
+            font-size: 1rem;
+        }
+
+        footer a {
+            color: #FFC107;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        .chat-interface {
+            flex-grow: 1;
+            padding: 20px;
+            background-image: url('{{ url_for('static', filename='images/white.png') }}');
+            background-size: cover;
+            background-position: center;
+            border-radius: 10px;
+            max-height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            margin-left: 50px;
+            margin-right: 0px
+        }
+
+        .chat-interface .title {
+            color: #333;
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+
+        .chat-window {
+            flex-grow: 1; /* Allow chat window to fill available space */
+            overflow-y: auto;
+            margin-bottom: 20px;
+            padding: 10px;
+            background-color: white;
+            border-radius: 10px;
+            justify-content: space-evenly;
+            min-height: 30vh; /* Ensure chat window has some minimum height */
+        }
+
+        .input-area {
+            display: flex;
+        }
+
+        .input-area input {
+            flex: 1;
+            padding: 10px;
+            font-size: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .input-area button {
+            padding: 10px;
+            background-color: #38b6ff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .input-area button:hover {
+            background-color: #38b6ff;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <img src="{{ url_for('static', filename='images/logo.png') }}" alt="NextGen Money Logo"> <!-- Logo Image -->
+        <nav>
+            <!-- Chat History Button with download link -->
+            <a href="javascript:void(0);" onclick="downloadChatHistory()">Chat History</a>
+
+            <i class="fas fa-user"></i> <!-- Font Awesome user icon -->
+        </nav>
+    </header>
+
+    <div class="container">
+        <!-- Chatbot Interface -->
+        <div class="chat-interface">
+            <h1 class="title">NextGen Money</h1>
+            
+            <div class="chat-window" id="chat-window">
+                <!-- Chat messages will be displayed here -->
+            </div>
+            <div class="input-area">
+                <input type="text" id="user-input" placeholder="Type your message...">
+                <button id="submit_btn">Send</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 NextGen Money. All rights reserved.</p>
+        <p>Visit our <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>
+    </footer>
+
+    <script src="{{ url_for('static', filename='main.js') }}">
+    </script>
+</body>
+</html>
