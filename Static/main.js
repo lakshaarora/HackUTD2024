@@ -23,7 +23,8 @@ function sendMessage() {
         // Show bot is typing ("...")
         const chatWindow = document.getElementById('chat-window');
         const botMessageElement = document.createElement('p');
-        botMessageElement.innerHTML = `<strong>Bot:</strong> ...`;
+        botMessageElement.innerHTML = `<strong><span style="color: #38b6ff;">Bot:</span></strong> ...`;
+
         chatWindow.appendChild(botMessageElement);
         chatWindow.scrollTop = chatWindow.scrollHeight;
 
@@ -76,7 +77,7 @@ $(document).ready(function() {
                 const chatWindow = document.getElementById("chat-window");
             
                 // Add a placeholder message to the chat window with a unique ID
-                chatWindow.innerHTML += `<p id="${uniqueId}"><strong>Bot:</strong> We are working. Please give us one second. Thank you!</p>`;
+                chatWindow.innerHTML += `<p id="${uniqueId}" style="color: #38b6ff;"><strong>Bot:</strong> We are working. Please give us one second. Thank you!</p>`;
                 
                 // Send the user input to your backend
                 const response = await fetch('/process_input', {
@@ -103,7 +104,7 @@ $(document).ready(function() {
                     // Update the most recent "working" message with the actual bot response
                     const workingMessageElement = document.getElementById(uniqueId);
                     if (workingMessageElement) {
-                        workingMessageElement.innerHTML = `<strong>Bot:</strong><br>${formattedResponse}`;
+                        workingMessageElement.innerHTML = `<strong style="color: #38b6ff;">Bot:</strong><br>${formattedResponse}`;
                         // Append the bot's response to the chat history
                         chat_history.push(`Bot: ${formattedResponse}\n`);
                     }       
